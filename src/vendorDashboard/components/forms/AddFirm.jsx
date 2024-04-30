@@ -9,6 +9,8 @@ const AddFirm = () => {
     const [region, setRegion] = useState([]);
     const [offer, setOffer] = useState("");
     const [file, setFile] = useState(null);
+    const [loading, setLoading] = useState(false);
+
 
     const handleCategoryChange = (event) => {
         const value = event.target.value;
@@ -18,7 +20,6 @@ const AddFirm = () => {
             setCategory([...category, value]);
         }
     };
-
     const handleRegionChange = (event) => {
         const value = event.target.value;
         if (region.includes(value)) {
@@ -35,11 +36,12 @@ const AddFirm = () => {
 
     const handleFirmSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
+
         try {
             const loginToken = localStorage.getItem('loginToken');
             if (!loginToken) {
-                console.error("User Not Authenticated");
-                return;
+                console.error("User not authenticated");
             }
 
             const formData = new FormData();
@@ -51,7 +53,6 @@ const AddFirm = () => {
             category.forEach((value) => {
                 formData.append('category', value);
             });
-
             region.forEach((value) => {
                 formData.append('region', value);
             });
@@ -69,24 +70,28 @@ const AddFirm = () => {
                 setFirmName("");
                 setArea("");
                 setCategory([]);
-                setFile(null);
                 setRegion([]);
                 setOffer("");
-                alert("Firm Added Successfully");
-            } else if (data.message === "Vendor can have only one Firm") {
-                alert("Firm Exists ✨. Only 1 can be added.");
+                setFile(null);
+                alert("Firm added Successfully");
+            } else if (data.message === "vendor can have only one firm") {
+                alert("Firm Exists 🥗. Only 1 firm can be added  ");
             } else {
-                alert("Faild to add Firm");
+                alert('Failed to add Firm');
             }
-            console.log("This is firm Id", data.firmId);
-            const firmId = data.firmId;
-            localStorage.setItem("firmId", firmId);
+
+            const mango = data.firmId;
+            const vendorRestuarant = data.vendorFirmName;
+
+            localStorage.setItem('firmId', mango);
+            localStorage.setItem('firmName', vendorRestuarant);
+            window.location.reload();
+
         } catch (error) {
-            console.error("Failed to Add Firm");
+            console.error("failed to add Firm");
+            alert("failed to add Firm");
         }
     };
-
-
     return (
         <div className="firmSection">
             <form className="tableForm" onSubmit={handleFirmSubmit}>
