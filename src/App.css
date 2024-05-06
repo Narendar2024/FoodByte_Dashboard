@@ -157,3 +157,20 @@ button{
     margin-left: -180px;
 }
 
+
+/* Products Table */
+
+.product-table{
+    width: 90vw;
+    border-collapse: collapse;
+    margin-top: 50px;
+}
+.product-table th, .product-table td{
+    border: 1px solid gray;
+    padding: 8px;
+}
+
+.product-table th{
+    text-align: left;
+    background-color: grey;
+}

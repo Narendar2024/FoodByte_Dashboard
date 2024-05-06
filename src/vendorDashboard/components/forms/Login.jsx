@@ -30,6 +30,7 @@ const Login = ({ showWelcomeHandler }) => {
                 const vendorFirmId = vendorData.vendorFirmId;
                 console.log("Checking for Firm Id:", vendorFirmId);
                 localStorage.setItem('firmId', vendorFirmId);
+                window.location.reload();
             }
 
         } catch (error) {
