@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { API_URL } from '../../data/apiPath';
+
 const Login = ({ showWelcomeHandler }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -28,9 +29,10 @@ const Login = ({ showWelcomeHandler }) => {
             const vendorData = await vendorResponse.json();
             if (vendorResponse.ok) {
                 const vendorFirmId = vendorData.vendorFirmId;
-                console.log("Checking for Firm Id:", vendorFirmId);
+                const vendorFirmName = vendorData.firm[0].firmName;
+                console.log("Firm Name is: ", vendorFirmName);
                 localStorage.setItem('firmId', vendorFirmId);
-                window.location.reload();
+                // window.location.reload();
             }
 
         } catch (error) {
@@ -46,7 +48,7 @@ const Login = ({ showWelcomeHandler }) => {
                 <label htmlFor="email">E-Mail</label>
                 <input type="email" id='email' name='email' value={email} placeholder='Enter your email' onChange={(e) => { setEmail(e.target.value); }} /><br />
                 <label htmlFor="password">Password</label>
-                <input type="text" id='password' name='password' value={password} placeholder='Enter your password' onChange={(e) => { setPassword(e.target.value); }} /><br />
+                <input type="password" id='password' name='password' value={password} placeholder='Enter your password' onChange={(e) => { setPassword(e.target.value); }} /><br /> {/* Use type="password" */}
                 <button type="submit">Submit</button><br />
             </form>
         </div>

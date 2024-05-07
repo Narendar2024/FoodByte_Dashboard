@@ -25,6 +25,7 @@ const LandingPage = () => {
     }, []);
 
     const logOutHandler = () => {
+        confirm("Are you sure to logout?");
         localStorage.removeItem('firmId');
         localStorage.removeItem('loginToken');
         setShowLogout(false);
