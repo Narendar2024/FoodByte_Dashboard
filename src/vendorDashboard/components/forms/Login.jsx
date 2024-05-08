@@ -29,10 +29,10 @@ const Login = ({ showWelcomeHandler }) => {
             const vendorData = await vendorResponse.json();
             if (vendorResponse.ok) {
                 const vendorFirmId = vendorData.vendorFirmId;
-                const vendorFirmName = vendorData.firm[0].firmName;
-                console.log("Firm Name is: ", vendorFirmName);
+                console.log("Checking for firmId", vendorFirmId);
+                // const vendorFirmName = vendorData.firm[0].firmName;
+                // console.log("Firm Name is: ", vendorFirmName);
                 localStorage.setItem('firmId', vendorFirmId);
-                // window.location.reload();
             }
 
         } catch (error) {
