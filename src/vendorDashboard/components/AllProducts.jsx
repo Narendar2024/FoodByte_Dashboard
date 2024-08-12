@@ -23,14 +23,26 @@ const AllProducts = () => {
 
 
     const deleteProductById = async (productId) => {
+        const isConfirmed = window.confirm("Are you sure you want to delete this product?");
+
+        if (!isConfirmed) {
+            return;
+        }
+
         try {
             const response = await fetch(`${API_URL}/product/${productId}`, {
                 method: 'DELETE'
             });
+
             if (response.ok) {
-                setProducts(products.filter(product => product._id !== productId));
-                confirm("Are you sure, you want delete the product?");
+                const result = await response.json();
+                console.log(result.message); // Log success message for debugging
+                setProducts(prevProducts => prevProducts.filter(product => product._id !== productId));
                 alert("Product Deleted Successfully");
+            } else {
+                const errorResult = await response.json();
+                console.log('Failed to delete product:', errorResult.error); // Log error for debugging
+                alert('Failed to delete product');
             }
         } catch (error) {
             console.error("Failed to delete product", error);
@@ -38,9 +50,11 @@ const AllProducts = () => {
         }
     };
 
+
+
     return (
         <div>
-            {products.length === 0 ? (
+            {!products ? (
                 <p>No Products added</p>
             ) : (
                 <table className="product-table">

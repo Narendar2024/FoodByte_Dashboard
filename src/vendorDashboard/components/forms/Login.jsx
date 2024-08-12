@@ -30,9 +30,11 @@ const Login = ({ showWelcomeHandler }) => {
             if (vendorResponse.ok) {
                 const vendorFirmId = vendorData.vendorFirmId;
                 console.log("Checking for firmId", vendorFirmId);
-                // const vendorFirmName = vendorData.firm[0].firmName;
-                // console.log("Firm Name is: ", vendorFirmName);
+                const vendorFirmName = vendorData.vendor.firm[0].firmName;
+                console.log("Firm Name is: ", vendorFirmName);
                 localStorage.setItem('firmId', vendorFirmId);
+                localStorage.setItem('firmName', vendorFirmName);
+                window.location.reload();
             }
 
         } catch (error) {
@@ -49,7 +51,9 @@ const Login = ({ showWelcomeHandler }) => {
                 <input type="email" id='email' name='email' value={email} placeholder='Enter your email' onChange={(e) => { setEmail(e.target.value); }} /><br />
                 <label htmlFor="password">Password</label>
                 <input type="password" id='password' name='password' value={password} placeholder='Enter your password' onChange={(e) => { setPassword(e.target.value); }} /><br /> {/* Use type="password" */}
-                <button type="submit">Submit</button><br />
+                <div className="btnSubmit">
+                    <button type="submit">Submit</button>
+                </div>
             </form>
         </div>
     );

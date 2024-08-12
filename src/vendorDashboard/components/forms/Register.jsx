@@ -46,7 +46,9 @@ const Register = ({ showLoginHandler }) => {
                 <label htmlFor="password">Password:</label>
                 <input type="text" id='password' value={password} name='password' placeholder='Enter your password' onChange={(e) => { setPassword(e.target.value); }} /><br />
 
-                <button type="submit">Submit</button><br />
+                <div className="btnSubmit">
+                    <button type="submit">Submit</button>
+                </div>
             </form>
         </div>
     );
