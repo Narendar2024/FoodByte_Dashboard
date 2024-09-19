@@ -17,15 +17,16 @@ const Login = ({ showWelcomeHandler }) => {
             });
             const data = await response.json();
             if (response.ok) {
+                alert('Login Successfully');
                 setEmail("");
                 setPassword("");
-                alert('Login Successfully');
                 localStorage.setItem('loginToken', data.token);
                 showWelcomeHandler();
             }
             const vendorId = data.vendorId;
             console.log("Checking for Vendor Id:", vendorId);
             const vendorResponse = await fetch(`${API_URL}/vendor/single-vendor/${vendorId}`);
+            window.location.reload();
             const vendorData = await vendorResponse.json();
             if (vendorResponse.ok) {
                 const vendorFirmId = vendorData.vendorFirmId;
@@ -34,9 +35,7 @@ const Login = ({ showWelcomeHandler }) => {
                 console.log("Firm Name is: ", vendorFirmName);
                 localStorage.setItem('firmId', vendorFirmId);
                 localStorage.setItem('firmName', vendorFirmName);
-                window.location.reload();
             }
-
         } catch (error) {
             console.error("Login Failed", error);
         }
